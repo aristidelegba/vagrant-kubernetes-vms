@@ -1,0 +1,23 @@
+- name: Installing Portainer With Ansible
+  hosts: cluster
+  become: True
+  vars_files:
+    - vars/default.yml
+  tasks:
+    - name: Installing Docker Module for Python
+      pip:
+        name: docker
+    - name: Pulling portainer docker image
+      docker_image:
+        name: "{{ container_image }}"
+        source: pull
+    - name: Creating Portainer Container
+      docker_container:
+        name: "{{ container_name }}"
+        image: "{{ container_image }}"
+        ports: "{{ container_ports }}"
+        volumes:
+          - "{{ container_config_volume }}"
+          - "{{ container_data_volume }}"
+        state: started
+        restart: yes

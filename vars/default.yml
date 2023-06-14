@@ -1,0 +1,6 @@
+---
+container_name: portainer
+container_image: portainer/portainer-ce
+container_ports: 9000:9000
+container_config_volume: /var/run/docker.sock:/var/run/docker.sock
+container_data_volume: /home/vagrant/portainer:/data
